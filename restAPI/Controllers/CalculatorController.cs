@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace restAPI.Controllers;
@@ -14,9 +15,23 @@ public class CalculatorController : ControllerBase
     }
 
     [HttpGet("sum/{firstNumber}/{secondNumber}")]
-    public IActionResult Get()
+    public IActionResult Get(string firstNumber, string secondNumber)
     {
+        if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+        {
+            var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
+            return Ok(sum.ToString(CultureInfo.InvariantCulture));
+        }
         return BadRequest("Invalid input");
     }
 
+    private bool IsNumeric(string firstNumber)
+    {
+        throw new NotImplementedException();
+    }
+
+    private decimal ConvertToDecimal(string secondNumber)
+    {
+        throw new NotImplementedException();
+    }
 }
