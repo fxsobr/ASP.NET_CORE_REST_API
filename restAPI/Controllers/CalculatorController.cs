@@ -20,18 +20,25 @@ public class CalculatorController : ControllerBase
         if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
         {
             var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
-            return Ok(sum.ToString(CultureInfo.InvariantCulture));
+            return Ok(sum.ToString(CultureInfo.CurrentCulture));
         }
         return BadRequest("Invalid input");
     }
 
-    private bool IsNumeric(string firstNumber)
+    private bool IsNumeric(string strNumber)
     {
-        throw new NotImplementedException();
+        double number;
+        bool isNumber = double.TryParse(strNumber, NumberStyles.Any, NumberFormatInfo.InvariantInfo, out number);
+        return isNumber;
     }
 
-    private decimal ConvertToDecimal(string secondNumber)
+    private decimal ConvertToDecimal(string strNumber)
     {
-        throw new NotImplementedException();
+        decimal decimalValue;
+        if (decimal.TryParse(strNumber, out decimalValue))
+        {
+            return decimalValue;
+        }
+        return 0;
     }
 }
